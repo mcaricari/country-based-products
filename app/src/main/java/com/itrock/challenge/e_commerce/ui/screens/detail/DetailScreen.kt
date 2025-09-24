@@ -1,5 +1,6 @@
 package com.itrock.challenge.e_commerce.ui.screens.detail
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -46,6 +48,7 @@ fun ProductDetail(
     product: Product,
     onBuyClick: () -> Unit,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -87,7 +90,10 @@ fun ProductDetail(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = onBuyClick) {
+        Button(onClick = {
+            onBuyClick()
+            Toast.makeText(context, "Comprado!", Toast.LENGTH_SHORT).show()
+        }) {
             Text("Comprar")
         }
     }
