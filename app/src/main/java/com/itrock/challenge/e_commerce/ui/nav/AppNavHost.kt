@@ -41,8 +41,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         composable(
             route = "${Screen.DETAIL.name}/{productId}",
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
-        ) { backStackEntry ->
-            backStackEntry.arguments?.getInt("productId") ?: 0
+        ) {
             ProductDetailScreen(
                 onBuyClick = { navController.navigateUp() }
             )
