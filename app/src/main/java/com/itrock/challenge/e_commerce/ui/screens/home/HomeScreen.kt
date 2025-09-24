@@ -13,8 +13,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.itrock.challenge.e_commerce.R
 import com.itrock.challenge.e_commerce.domain.model.Product
 import com.itrock.challenge.e_commerce.ui.screens.components.ProductPrev
 import com.itrock.challenge.e_commerce.ui.screens.error.ErrorScreen
@@ -32,13 +34,13 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("Productos") },
+                title = { Text(stringResource(R.string.home_top_app_bar_title)) },
             )
         }
     ) { innerPadding ->
         when (state) {
             HomeUiState.Error -> ErrorScreen(
-                "Ocurrió un error al cargar los productos",
+                R.string.home_screen_error_msg,
                 Modifier.padding(innerPadding)
             )
 

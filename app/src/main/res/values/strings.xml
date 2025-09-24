@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">E-Commerce</string>
+    <string name="product_detail_app_bar_title">Detalle del producto</string>
+    <string name="icon_back_content_Desc">Back</string>
+    <string name="detail_screen_error_msg">"Error al cargar el producto"</string>
+    <string name="home_screen_error_msg">"Ocurrió un error al cargar los productos"</string>
+    <string name="bought_toast_text">Comprado!</string>
+    <string name="buy_button_text">Comprar</string>
+    <string name="detail_price">$ %1$s</string>
+    <string name="home_top_app_bar_title">Productos</string>
+    <string name="login_title">Hola!</string>
+    <string name="login_subtitle">Ingresá tus credenciales para acceder</string>
+    <string name="user_label">Usuario</string>
+    <string name="password_label">Contraseña</string>
+    <string name="country_textfield_label">Seleccioná tu país</string>
+    <string name="login_button_text">Ingresar</string>
+    <string name="wrong_credentials_text">Credenciales incorrectas</string>
 </resources>

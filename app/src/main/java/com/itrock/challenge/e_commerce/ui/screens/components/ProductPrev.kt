@@ -20,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.itrock.challenge.e_commerce.R
 import com.itrock.challenge.e_commerce.domain.model.Product
 
 @Composable
@@ -61,7 +63,7 @@ fun ProductPrev(
         Spacer(Modifier.width(8.dp))
         Column {
             Text(text = product.title)
-            Text(text = "$ ${product.price}")
+            Text(text = stringResource(R.string.detail_price, product.price))
         }
     }
 }

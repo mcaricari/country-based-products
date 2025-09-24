@@ -27,9 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.itrock.challenge.e_commerce.R
 import com.itrock.challenge.e_commerce.domain.model.Product
 import com.itrock.challenge.e_commerce.ui.screens.error.ErrorScreen
 import com.itrock.challenge.e_commerce.ui.screens.loading.LoadingScreen
@@ -46,12 +48,12 @@ fun ProductDetailScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar (
-                title = { Text("Detalle del producto") },
+                title = { Text(stringResource(R.string.product_detail_app_bar_title)) },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.icon_back_content_Desc)
                         )
                     }
                 }
@@ -60,7 +62,7 @@ fun ProductDetailScreen(
     ) { innerPadding ->
         when (state) {
             DetailUiState.Error -> ErrorScreen(
-                "Error al cargar el producto",
+                R.string.detail_screen_error_msg,
                 Modifier.padding(innerPadding)
             )
 
@@ -122,9 +124,10 @@ fun ProductDetail(
 
         Button(onClick = {
             onBuyClick()
-            Toast.makeText(context, "Comprado!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.bought_toast_text), Toast.LENGTH_SHORT).show()
         }) {
-            Text("Comprar")
+            Text(stringResource(R.string.buy_button_text))
         }
     }
 }

@@ -27,9 +27,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.itrock.challenge.e_commerce.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,24 +53,24 @@ fun LoginScreen(
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         Text(
-            text = "Hola!",
+            text = stringResource(R.string.login_title),
             style = MaterialTheme.typography.headlineLarge
         )
         Text(
-            text = "Ingresá tus credenciales para acceder",
+            text = stringResource(R.string.login_subtitle),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.weight(1f)
         )
         OutlinedTextField(
             value = state.username,
-            label = { Text("Usuario") },
+            label = { Text(stringResource(R.string.user_label)) },
             onValueChange = viewModel::onUsernameChange,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
         OutlinedTextField(
             value = state.password,
-            label = { Text("Contraseña") },
+            label = { Text(stringResource(R.string.password_label)) },
             onValueChange = viewModel::onPasswordChange,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -83,7 +85,7 @@ fun LoginScreen(
                 value = countries[selectedCountry],
                 onValueChange = {},
                 readOnly = true,
-                label = { Text("Seleccioná tu país") },
+                label = { Text(stringResource(R.string.country_textfield_label)) },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownExpanded)
                 },
@@ -114,12 +116,13 @@ fun LoginScreen(
                 if (viewModel.login()) {
                     onLoginSuccess()
                 } else {
-                    Toast.makeText(context, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,
+                        context.getString(R.string.wrong_credentials_text), Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Ingresar")
+            Text(stringResource(R.string.login_button_text))
         }
         Spacer(modifier = Modifier.weight(1f))
     }
