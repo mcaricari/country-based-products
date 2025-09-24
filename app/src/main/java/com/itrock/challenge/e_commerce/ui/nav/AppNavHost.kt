@@ -22,7 +22,11 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         composable(Screen.LOGIN.name) {
             LoginScreen(
                 onLoginSuccess = {
-                    navController.navigate(Screen.HOME.name)
+                    navController.navigate(Screen.HOME.name) {
+                        popUpTo(Screen.LOGIN.name) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
