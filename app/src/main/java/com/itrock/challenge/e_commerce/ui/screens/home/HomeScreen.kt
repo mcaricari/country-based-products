@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,6 +20,7 @@ import com.itrock.challenge.e_commerce.ui.screens.components.ProductPrev
 import com.itrock.challenge.e_commerce.ui.screens.error.ErrorScreen
 import com.itrock.challenge.e_commerce.ui.screens.loading.LoadingScreen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onProductClick: (Int) -> Unit,
@@ -23,20 +28,38 @@ fun HomeScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    when (state) {
-        HomeUiState.Error -> ErrorScreen("Ocurrió un error al cargar los productos")
-        HomeUiState.Loading -> LoadingScreen()
-        is HomeUiState.Success -> ProductList(
-            (state as HomeUiState.Success).products,
-            onProductClick
-        )
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text("Productos") },
+            )
+        }
+    ) { innerPadding ->
+        when (state) {
+            HomeUiState.Error -> ErrorScreen(
+                "Ocurrió un error al cargar los productos",
+                Modifier.padding(innerPadding)
+            )
+
+            HomeUiState.Loading -> LoadingScreen(Modifier.padding(innerPadding))
+            is HomeUiState.Success -> ProductList(
+                (state as HomeUiState.Success).products,
+                onProductClick,
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }
 
 @Composable
-fun ProductList(products: List<Product>, onProductClick: (Int) -> Unit) {
+fun ProductList(
+    products: List<Product>,
+    onProductClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

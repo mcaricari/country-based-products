@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.itrock.challenge.e_commerce.ui.screens.detail.ProductDetailScreen
-import com.itrock.challenge.e_commerce.ui.screens.login.LoginScreen
 import com.itrock.challenge.e_commerce.ui.screens.home.HomeScreen
+import com.itrock.challenge.e_commerce.ui.screens.login.LoginScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -43,7 +43,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
         ) {
             ProductDetailScreen(
-                onBuyClick = { navController.navigateUp() }
+                onBuyClick = { navController.navigateUp() },
+                onBackClick = { navController.navigateUp() }
             )
         }
 

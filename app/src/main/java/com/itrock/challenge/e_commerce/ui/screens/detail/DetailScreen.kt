@@ -9,9 +9,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -27,18 +34,41 @@ import com.itrock.challenge.e_commerce.domain.model.Product
 import com.itrock.challenge.e_commerce.ui.screens.error.ErrorScreen
 import com.itrock.challenge.e_commerce.ui.screens.loading.LoadingScreen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailScreen(
     onBuyClick: () -> Unit,
+    onBackClick: () -> Unit,
     viewModel: DetailScreenViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    when (state) {
-        DetailUiState.Error -> ErrorScreen("Error al cargar el producto")
-        DetailUiState.Loading -> LoadingScreen()
-        is DetailUiState.Success -> {
-            val product = (state as DetailUiState.Success).product
-            ProductDetail(product, onBuyClick)
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar (
+                title = { Text("Detalle del producto") },
+                navigationIcon = {
+                    IconButton(onClick = { onBackClick() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        when (state) {
+            DetailUiState.Error -> ErrorScreen(
+                "Error al cargar el producto",
+                Modifier.padding(innerPadding)
+            )
+
+            DetailUiState.Loading -> LoadingScreen(Modifier.padding(innerPadding))
+            is DetailUiState.Success -> {
+                val product = (state as DetailUiState.Success).product
+                ProductDetail(product, onBuyClick)
+            }
         }
     }
 }
