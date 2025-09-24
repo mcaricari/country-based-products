@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
@@ -51,8 +52,7 @@ fun LoginScreen(
     ) {
         Text(
             text = "Hola!",
-            style = MaterialTheme.typography.headlineLarge,
-            //modifier = Modifier.weight(1f)
+            style = MaterialTheme.typography.headlineLarge
         )
         Text(
             text = "Ingresá tus credenciales para acceder",
@@ -63,13 +63,16 @@ fun LoginScreen(
             value = state.username,
             label = { Text("Usuario") },
             onValueChange = viewModel::onUsernameChange,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
         OutlinedTextField(
             value = state.password,
             label = { Text("Contraseña") },
             onValueChange = viewModel::onPasswordChange,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation()
         )
 
         ExposedDropdownMenuBox(
@@ -108,20 +111,16 @@ fun LoginScreen(
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
-                //viewModel::login
-                onLoginSuccess()
+                if (viewModel.login()) {
+                    onLoginSuccess()
+                } else {
+                    Toast.makeText(context, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Ingresar")
         }
         Spacer(modifier = Modifier.weight(1f))
-
-        if (state.loginSuccess) {
-            onLoginSuccess()
-        }
-        if (state.showError) {
-            Toast.makeText(context, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
-        }
     }
 }

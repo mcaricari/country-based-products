@@ -29,11 +29,7 @@ class LoginScreenViewModel
         selectSourceUseCase(id)
     }
 
-    fun login() {
-        if (_state.value.username == validUsername && _state.value.password == validPassword) {
-            _state.value = _state.value.copy(showError = false, loginSuccess = true)
-        } else {
-            _state.value = state.value.copy(showError = true, loginSuccess = false)
-        }
-    }
+    fun login(): Boolean =
+        _state.value.username == validUsername && _state.value.password == validPassword
+
 }
