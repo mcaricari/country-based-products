@@ -1,4 +1,4 @@
-# challenge-it-rock
+# Mostrador de productos por país
 
 ## Cómo compilar y ejecutar
 - Clonar el repositorio y abrirlo con Android Studio. 
